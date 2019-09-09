@@ -37,10 +37,3 @@ class Translator:
                     out_text += val[index] + '\n'
 
         return out_text
-
-t = Translator()
-#rus, pay = t.from_english('scope')
-pay = {'transcription': '[skōp]', 'all_translations': {'сущ.': ['рамки', 'сфера', 'возможности']}, 'synonyms': {'сущ.': ['extent', 'range', 'breadth', 'width']}, 'examples': ['Currently there is parking available for about twenty cars and ample scope for expansion.', 'I am realistic enough to know that at times expanding the scope of a project is completely necessary, though.', 'such questions go well beyond the scope of this book']}
-
-#print(pay)
-print(t.prepare_out('scope', 'объем', pay))
