@@ -1,6 +1,6 @@
 import requests
 import logging
-from .settings import YANDEX_URL, YANDEX_API
+from translator.settings import YANDEX_URL, YANDEX_API
 
 
 class YandexTranslate:

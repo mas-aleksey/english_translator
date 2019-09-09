@@ -5,9 +5,9 @@ import requests
 import logging
 import random
 
-from .translate import Translator
-from .async_task import RepeatEvery
-from .gateway import DB
+from translator.translate import Translator
+from translator.async_task import RepeatEvery
+from translator.gateway import DB
 
 logger = logging.getLogger('Translate_Bot')
 
