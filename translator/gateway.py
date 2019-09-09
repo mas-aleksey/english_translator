@@ -2,6 +2,7 @@ import logging
 import os
 import datetime
 import psycopg2
+import json
 
 logger = logging.getLogger("Gateway")
 
@@ -48,7 +49,7 @@ class DB:
 
     def insert_word(self, eng_word, rus_word, payload, chat_id):
         query = "INSERT INTO Words (eng_word, rus_word, payload, chat_id) values('{0}', '{1}', '{2}', {3})".\
-            format(eng_word, rus_word, payload, chat_id)
+            format(eng_word, rus_word, json.dumps(payload), chat_id)
         self.cursor_execute(query)
 
     def get_today_word(self):
@@ -94,7 +95,7 @@ class DB:
             self.conn.commit()
             return cur.fetchall() if cur.description else cur.statusmessage
 
-import json
+#import json
 #a = DB()
 #d = None
 #w = ('hello all', 'привет всем', json.dumps(d), 123456)

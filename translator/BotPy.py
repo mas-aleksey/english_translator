@@ -17,13 +17,6 @@ help_text = '''
 /y [word:s] - for yandex translate
 /help - for his message'''
 
-paylo = {
-    'transcription': 'translation',  # type:str
-    'all_translations': 'all-translations',  # type:dict
-    'synonyms': 'synonyms',  # type:dict
-    'examples': 'examples',  # type:list
-}
-
 
 class TranslateBot:
     def __init__(self, _token):

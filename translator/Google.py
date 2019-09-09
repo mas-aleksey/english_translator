@@ -37,7 +37,6 @@ class GoogleTranslate:
     def prepare_out(self, response):
         rus_text = response.text
         extra = response.extra_data
-        print(extra)
         payload = {}
 
         try:
