@@ -94,6 +94,8 @@ class TranslateBot:
             out_text = f'{words} - {rus_text}\n'
             if payload and isinstance(payload, dict):
                 for key, val in payload.items():
+                    if not val:
+                        continue
                     if key == 'transcription':
                         out_text += val + '\n'
                     if key == 'all_translations' or key == 'synonyms':
