@@ -101,6 +101,7 @@ import json
 #a.insert_word(w)
 #a.get_today_word()
 #all = a.cursor_execute('select * from Words')
+#print(a.cursor_execute('delete from words where id<4'))
 #for wo in all:
 #    print(wo)
 

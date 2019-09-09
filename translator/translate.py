@@ -37,3 +37,8 @@ class Translator:
                     out_text += val[index] + '\n'
 
         return out_text
+
+
+#t = Translator()
+#res = t.from_english('credentials', 'google')
+#print(res)

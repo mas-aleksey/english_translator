@@ -37,6 +37,7 @@ class GoogleTranslate:
     def prepare_out(self, response):
         rus_text = response.text
         extra = response.extra_data
+        print(extra)
         payload = {}
 
         try:
@@ -58,8 +59,8 @@ class GoogleTranslate:
     def get_transcription(translation):
         try:
             out = translation[1][3]
-        except Exception as e:
-            logging.warning('transcription is absent for: %s - %s', translation, e)
+        except IndexError:
+            logging.warning('transcription is absent in list: %s', translation)
             return None
         else:
             return f'[{out}]'
@@ -89,6 +90,9 @@ class GoogleTranslate:
 
     @staticmethod
     def get_examples(examples):
+        if not examples:
+            return None
+
         def replace_b(text):
             return text.replace('<b>', '').replace('</b>', '')
         return [replace_b(ex[0]) for ex in examples[0]]
