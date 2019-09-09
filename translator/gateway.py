@@ -97,12 +97,12 @@ class DB:
 
 #import json
 #a = DB()
-#d = None
+#d = {'exampl': ''}
 #w = ('hello all', 'привет всем', json.dumps(d), 123456)
 #a.insert_word(w)
 #a.get_today_word()
+#print(a.cursor_execute("delete from words where eng_word='credentials'"))
 #all = a.cursor_execute('select * from Words')
-#print(a.cursor_execute('delete from words where id<4'))
 #for wo in all:
 #    print(wo)
 

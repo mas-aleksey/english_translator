@@ -19,4 +19,10 @@ class YandexTranslate:
             self.logger.error('translate error: %s', e)
             return None, None
         else:
-            return response.json()['text'][0], {}
+            try:
+                result = response.json()['text'][0]
+            except Exception as e:
+                self.logger.error('Parse response error: %s, error: %s', response.json(), e)
+                return None, None
+            else:
+                return result

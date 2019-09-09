@@ -93,5 +93,5 @@ class GoogleTranslate:
             return None
 
         def replace_b(text):
-            return text.replace('<b>', '').replace('</b>', '')
+            return text.replace('<b>', '').replace('</b>', '').replace('\'', '')
         return [replace_b(ex[0]) for ex in examples[0]]
