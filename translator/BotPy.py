@@ -84,9 +84,11 @@ class TranslateBot:
             self.send_word()
 
     def send_word(self):
-        word = self.gateway.get_today_word()
-        out = self.prepare_out(word[1], word[2], word[3])
-        self.sender.push(out, word[4])
+        chat_ids = self.gateway.get_all_chatid()
+        for chat_id in chat_ids:
+            word = self.gateway.get_today_word(chat_id[0])
+            out = self.prepare_out(word[1], word[2], word[3])
+            self.sender.push(out, chat_id[0])
 
     @staticmethod
     def prepare_out(words, rus_text, payload):

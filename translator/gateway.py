@@ -52,18 +52,22 @@ class DB:
             format(eng_word, rus_word, json.dumps(payload), chat_id)
         self.cursor_execute(query)
 
-    def get_today_word(self):
-        query = "SELECT * FROM Words WHERE create_dt>'{}' ORDER BY show_count LIMIT 1".format(
-            datetime.datetime.now() - datetime.timedelta(days=1))
+    def get_today_word(self, chat_id):
+        query = "SELECT * FROM Words WHERE chat_id={} and create_dt>'{}' ORDER BY show_count LIMIT 1".format(
+            chat_id, datetime.datetime.now() - datetime.timedelta(days=1))
         word = self.cursor_execute(query)[0]
         self.update_show_word(word)
         return word
 
     def update_show_word(self, word):
-        query = "UPDATE Words SET show_count='{}', last_show_dt='{}' WHERE eng_word='{}'".\
+        query = "UPDATE Words SET show_count={}, last_show_dt='{}' WHERE eng_word='{}'".\
             format(word[6]+1, datetime.datetime.now(), word[1])
         result = self.cursor_execute(query)
         return int(result.split()[1])
+
+    def get_all_chatid(self):
+        query = "SELECT DISTINCT chat_id from words"
+        return self.cursor_execute(query)
 
     # ----------------- logging --------------------
 
