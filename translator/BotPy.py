@@ -15,6 +15,7 @@ help_text = '''
 /t [word:s] - for google or yandex translate
 /g [word:s] - for google translate
 /y [word:s] - for yandex translate
+/know [word:s] - if already learn this word
 /help - for his message'''
 
 
@@ -38,6 +39,7 @@ class TranslateBot:
         dp.add_handler(CommandHandler('t', self.do_translate, pass_args=True))
         dp.add_handler(CommandHandler('g', self.google_tr, pass_args=True))
         dp.add_handler(CommandHandler('y', self.yandex_tr, pass_args=True))
+        dp.add_handler(CommandHandler('know', self.know, pass_args=True))
         dp.add_error_handler(self.error)
 
     @staticmethod
@@ -71,6 +73,13 @@ class TranslateBot:
             self.gateway.insert_word(words, rus_text, payload, update.message.chat_id)
             bot.send_message(chat_id=update.message.chat_id, text=self.prepare_out(words, rus_text, payload))
 
+    def know(self, bot, update, args):
+        words = ' '.join(args)
+        if self.gateway.set_known(words):
+            bot.send_message(chat_id=update.message.chat_id, text='Great!')
+        else:
+            bot.send_message(chat_id=update.message.chat_id, text='Sorry. This word not fount')
+
     @staticmethod
     def wait_sec(sec):
         while datetime.now().second != sec:
@@ -80,7 +89,7 @@ class TranslateBot:
         self.wait_sec(1)
         cur_dtime = datetime.now()
         if 6 < cur_dtime.hour < 19 and \
-                cur_dtime.minute % 14 == 0:
+                cur_dtime.minute % 15 == 0:
             self.send_word()
 
     def send_word(self):

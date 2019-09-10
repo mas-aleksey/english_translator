@@ -53,7 +53,7 @@ class DB:
         self.cursor_execute(query)
 
     def get_today_word(self, chat_id):
-        query = "SELECT * FROM Words WHERE chat_id={} and create_dt>'{}' ORDER BY show_count LIMIT 1".format(
+        query = "SELECT * FROM Words WHERE chat_id={} and already_know=FALSE and create_dt>'{}' ORDER BY show_count LIMIT 1".format(
             chat_id, datetime.datetime.now() - datetime.timedelta(days=1))
         word = self.cursor_execute(query)[0]
         self.update_show_word(word)
@@ -68,6 +68,12 @@ class DB:
     def get_all_chatid(self):
         query = "SELECT DISTINCT chat_id from words"
         return self.cursor_execute(query)
+
+    def set_known(self, word):
+        query = "UPDATE Words SET already_know=TRUE WHERE eng_word='{}'".format(word)
+        result = self.cursor_execute(query)
+        return int(result.split()[1]) > 0
+
 
     # ----------------- logging --------------------
 
@@ -109,7 +115,8 @@ class DB:
 #all = a.cursor_execute('select * from Words')
 #for wo in all:
 #    print(wo)
-
+#res = a.set_known('period')
+#print(res)
 #rr = a.get_today_word()
 #print(a.cursor_execute('drop table Words'))
 #tabs = a.cursor_execute('SELECT * FROM pg_catalog.pg_tables;')
