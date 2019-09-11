@@ -55,9 +55,13 @@ class DB:
     def get_today_word(self, chat_id):
         query = "SELECT * FROM Words WHERE chat_id={} and already_know=FALSE and create_dt>'{}' ORDER BY show_count LIMIT 1".format(
             chat_id, datetime.datetime.now() - datetime.timedelta(days=1))
-        word = self.cursor_execute(query)[0]
-        self.update_show_word(word)
-        return word
+        result = self.cursor_execute(query)
+        if result:
+            word = result[0]
+            self.update_show_word(word)
+            return word
+        else:
+            return None
 
     def update_show_word(self, word):
         query = "UPDATE Words SET show_count={}, last_show_dt='{}' WHERE eng_word='{}'".\
@@ -111,6 +115,9 @@ class DB:
 #w = ('hello all', 'привет всем', json.dumps(d), 123456)
 #a.insert_word(w)
 #a.get_today_word()
+#cats = a.get_all_chatid()
+#for c in cats:
+#    print(c[0])
 #print(a.cursor_execute("delete from words where eng_word='credentials'"))
 #all = a.cursor_execute('select * from Words')
 #for wo in all:
