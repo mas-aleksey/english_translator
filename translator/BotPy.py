@@ -92,7 +92,7 @@ class TranslateBot:
     def notify_event(self):
         self.wait_sec(0)
         cur_dtime = datetime.now()
-        if 10 < cur_dtime.hour < 21 and \
+        if 7 < cur_dtime.hour < 18 and \
                 cur_dtime.minute % 20 == 0:
             self.send_word()
 
