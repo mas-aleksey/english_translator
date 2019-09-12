@@ -44,6 +44,7 @@ class DB:
 
     def create_tab(self):
         self.cursor_execute(event_tab)
+        self.cursor_execute("SET timezone = 'Europe/Moscow'")
 
     # ---------------- requests -------------------
 
@@ -53,8 +54,9 @@ class DB:
         self.cursor_execute(query)
 
     def get_today_word(self, chat_id):
-        query = "SELECT * FROM Words WHERE chat_id={} and already_know=FALSE and create_dt>'{}' ORDER BY show_count LIMIT 1".format(
-            chat_id, datetime.datetime.now() - datetime.timedelta(days=1))
+        query = "SELECT * FROM Words " \
+                "WHERE chat_id={} and already_know=FALSE " \
+                "ORDER BY last_show_dt LIMIT 1".format(chat_id)
         result = self.cursor_execute(query)
         if result:
             word = result[0]
@@ -119,7 +121,7 @@ class DB:
 #for c in cats:
 #    print(c[0])
 #print(a.cursor_execute("delete from words where eng_word='credentials'"))
-#all = a.cursor_execute('select * from Words')
+#all = a.cursor_execute('SELECT last_show_dt FROM words  ORDER BY "last_show_dt" DESC, "id" DESC  LIMIT 10')
 #for wo in all:
 #    print(wo)
 #res = a.set_known('period')

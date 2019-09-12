@@ -4,6 +4,8 @@ import time
 import requests
 import logging
 import random
+import json
+from telegram import Update
 
 from translator.translate import Translator
 from translator.async_task import RepeatEvery
@@ -44,6 +46,8 @@ class TranslateBot:
 
     @staticmethod
     def push_help_msg(bot, update):
+        up = update  #type:Update
+        print(json.dumps(up.to_dict(), indent=4))
         bot.send_message(chat_id=update.message.chat_id, text=help_text)
 
     def do_translate(self, bot, update, args):
@@ -86,10 +90,10 @@ class TranslateBot:
             time.sleep(1)
 
     def notify_event(self):
-        self.wait_sec(1)
+        self.wait_sec(0)
         cur_dtime = datetime.now()
-        if 6 < cur_dtime.hour < 19 and \
-                cur_dtime.minute % 15 == 0:
+        if 10 < cur_dtime.hour < 21 and \
+                cur_dtime.minute % 20 == 0:
             self.send_word()
 
     def send_word(self):
