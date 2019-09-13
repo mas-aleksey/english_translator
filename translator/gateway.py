@@ -44,11 +44,11 @@ class DB:
 
     def create_tab(self):
         self.cursor_execute(event_tab)
-        self.cursor_execute("SET timezone = 'Europe/Moscow'")
 
     # ---------------- requests -------------------
 
     def insert_word(self, eng_word, rus_word, payload, chat_id):
+        self.cursor_execute("SET timezone = 'Europe/Moscow'")
         query = "INSERT INTO Words (eng_word, rus_word, payload, chat_id) values('{0}', '{1}', '{2}', {3})".\
             format(eng_word, rus_word, json.dumps(payload), chat_id)
         self.cursor_execute(query)
@@ -66,6 +66,7 @@ class DB:
             return None
 
     def update_show_word(self, word):
+        self.cursor_execute("SET timezone = 'Europe/Moscow'")
         query = "UPDATE Words SET show_count={}, last_show_dt='{}' WHERE eng_word='{}'".\
             format(word[6]+1, datetime.datetime.now(), word[1])
         result = self.cursor_execute(query)
@@ -116,7 +117,11 @@ class DB:
 #d = {'exampl': ''}
 #w = ('hello all', 'привет всем', json.dumps(d), 123456)
 #a.insert_word(w)
-#a.get_today_word()
+#w = a.get_today_word(134751583)
+#print(w, '\n')
+#w = a.cursor_execute("SELECT * FROM words WHERE chat_id=-321508380 and already_know=FALSE ORDER BY last_show_dt")
+#for i in w:
+#    print(i)
 #cats = a.get_all_chatid()
 #for c in cats:
 #    print(c[0])

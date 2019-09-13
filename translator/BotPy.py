@@ -92,13 +92,12 @@ class TranslateBot:
     def notify_event(self):
         self.wait_sec(0)
         cur_dtime = datetime.now()
-        print(cur_dtime.hour)
         if 6 < cur_dtime.hour < 18 and \
                 cur_dtime.minute % 15 == 0:
+            print('Show word event in', cur_dtime)
             self.send_word()
 
     def send_word(self):
-        print('send')
         chat_ids = self.gateway.get_all_chatid()
         for chat_id in chat_ids:
             word = self.gateway.get_today_word(chat_id[0])
