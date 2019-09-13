@@ -93,7 +93,7 @@ class TranslateBot:
         self.wait_sec(0)
         cur_dtime = datetime.now()
         print(cur_dtime.hour)
-        if 7 < cur_dtime.hour < 18 and \
+        if 6 < cur_dtime.hour < 18 and \
                 cur_dtime.minute % 15 == 0:
             self.send_word()
 
