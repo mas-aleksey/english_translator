@@ -120,7 +120,7 @@ class DB:
 #cats = a.get_all_chatid()
 #for c in cats:
 #    print(c[0])
-#print(a.cursor_execute("delete from words where eng_word='credentials'"))
+#print(a.cursor_execute("select now()"))
 #all = a.cursor_execute('SELECT last_show_dt FROM words  ORDER BY "last_show_dt" DESC, "id" DESC  LIMIT 10')
 #for wo in all:
 #    print(wo)
