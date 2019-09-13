@@ -18,6 +18,7 @@ help_text = '''
 /g [word:s] - for google translate
 /y [word:s] - for yandex translate
 /know [word:s] - if already learn this word
+/show - for show all learning words
 /help - for his message'''
 
 
