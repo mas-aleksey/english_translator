@@ -81,6 +81,13 @@ class DB:
         result = self.cursor_execute(query)
         return int(result.split()[1]) > 0
 
+    def show_to_learn(self, chat_id):
+        query = "SELECT eng_word, rus_word FROM Words " \
+                "WHERE chat_id={} and already_know=FALSE " \
+                "ORDER BY eng_word".format(chat_id)
+        result = self.cursor_execute(query)
+        return result
+
 
     # ----------------- logging --------------------
 
@@ -113,15 +120,21 @@ class DB:
             return cur.fetchall() if cur.description else cur.statusmessage
 
 #import json
-#a = DB()
+# a = DB()
 #d = {'exampl': ''}
 #w = ('hello all', 'привет всем', json.dumps(d), 123456)
 #a.insert_word(w)
-#w = a.get_today_word(134751583)
+# w = a.show_to_learn(1347515830)
 #print(w, '\n')
-#w = a.cursor_execute("SELECT * FROM words WHERE chat_id=-321508380 and already_know=FALSE ORDER BY last_show_dt")
-#for i in w:
-#    print(i)
+#w = a.cursor_execute("SELECT * FROM words WHERE chat_id=-321508380 and already_know=FALSE ORDER BY last_show_dt")pri
+# print(w)
+# if w:
+#     print('\n'.join(' - '.join(i) for i in w))
+# else:
+#     print('you have no words')
+# for i in w:
+# print(w == [])
+#     print(' - '.join(i))
 #cats = a.get_all_chatid()
 #for c in cats:
 #    print(c[0])
@@ -155,5 +168,19 @@ class DB:
 #    print(event)
 #print(a.select_all())
 
-#t = 1568318190
-#print(datetime.datetime.fromtimestamp(t))
+
+# from datetime import datetime, timezone
+#
+#
+# def utc_to_local(utc_dt):
+#     return utc_dt.replace(tzinfo=timezone.utc).astimezone(tz=None)
+#
+#
+# def aslocaltimestr(utc_dt):
+#     return utc_to_local(utc_dt).strftime('%Y-%m-%d %H:%M:%S.%f %Z%z')
+#
+#
+# income = datetime.fromtimestamp(1568406149)
+# delta = income - datetime.utcnow()
+# print(delta)
+# print(aslocaltimestr(datetime.utcnow()))

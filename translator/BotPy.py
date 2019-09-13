@@ -42,11 +42,12 @@ class TranslateBot:
         dp.add_handler(CommandHandler('g', self.google_tr, pass_args=True))
         dp.add_handler(CommandHandler('y', self.yandex_tr, pass_args=True))
         dp.add_handler(CommandHandler('know', self.know, pass_args=True))
+        dp.add_handler(CommandHandler('show', self.show_to_learn))
         dp.add_error_handler(self.error)
 
     @staticmethod
     def push_help_msg(bot, update):
-        up = update  #type:Update
+        up = update  # type:Update
         print(json.dumps(up.to_dict(), indent=4))
         bot.send_message(chat_id=update.message.chat_id, text=help_text)
 
@@ -83,6 +84,14 @@ class TranslateBot:
             bot.send_message(chat_id=update.message.chat_id, text='Great!')
         else:
             bot.send_message(chat_id=update.message.chat_id, text='Sorry. This word not fount')
+
+    def show_to_learn(self, bot, update):
+        words = self.gateway.show_to_learn(update.message.chat_id)
+        if words:
+            msg = '\n'.join(' - '.join(i) for i in words)
+            bot.send_message(chat_id=update.message.chat_id, text=msg)
+        else:
+            bot.send_message(chat_id=update.message.chat_id, text='You have no words to learn')
 
     @staticmethod
     def wait_sec(sec):
