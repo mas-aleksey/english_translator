@@ -103,7 +103,7 @@ class TranslateBot:
         self.wait_sec(0)
         cur_dtime = datetime.now()
         if 6 < cur_dtime.hour < 18 and \
-                cur_dtime.minute % 15 == 0:
+                cur_dtime.minute % 60 == 0:
             print('Show word event in', cur_dtime)
             self.send_word()
 

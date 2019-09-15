@@ -6,7 +6,7 @@ import json
 
 logger = logging.getLogger("Gateway")
 
-event_tab = '''CREATE TABLE IF NOT EXISTS Words (
+words_tab = '''CREATE TABLE IF NOT EXISTS Words (
     ID SERIAL PRIMARY KEY,
     eng_word VARCHAR NOT NULL,
     rus_word VARCHAR NOT NULL,
@@ -16,7 +16,16 @@ event_tab = '''CREATE TABLE IF NOT EXISTS Words (
     show_count integer DEFAULT 0,
     last_show_dt timestamptz DEFAULT CURRENT_TIMESTAMP,
     already_know BOOLEAN DEFAULT FALSE,
-    tags VARCHAR)'''
+    tags VARCHAR
+    )'''
+
+users_tab = '''CREATE TABLE IF NOT EXISTS Chat_ids (
+    ID SERIAL PRIMARY KEY,
+    chat_id INTEGER NOT NULL,
+    display_name VARCHAR,
+    tinezone INTEGER,
+    notify_delay INTEGER
+    )'''
 
 
 class DB:
@@ -43,7 +52,7 @@ class DB:
         self.conn = self.connect()
 
     def create_tab(self):
-        self.cursor_execute(event_tab)
+        self.cursor_execute(words_tab)
 
     # ---------------- requests -------------------
 
